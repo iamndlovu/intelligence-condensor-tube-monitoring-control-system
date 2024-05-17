@@ -1,0 +1,29 @@
+{
+  "name": "intelligent-condensor-tube-monitoring-control-system",
+  "version": "0.1.0",
+  "description": "",
+  "main": "server/index.js",
+  "scripts": {
+    "client-install": "npm install --prefix dashboard",
+    "server-install": "npm install --prefix server",
+    "install-all": "concurrently \"npm install\" \"npm:client-install\" \"npm:server-install\"",
+    "dev-server": "npm run dev --prefix server",
+    "server": "npm start --prefix server",
+    "client": "npm start --prefix dashboard",
+    "dev": "concurrently \"npm:dev-server\" \"npm:client\"",
+    "start": "concurrently \"npm:server\" \"npm:client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iamndlovu/intelligence-condensor-tube-monitoring-control-system.git"
+  },
+  "author": "Pardon Ndlovu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iamndlovu/intelligence-condensor-tube-monitoring-control-system/issues"
+  },
+  "homepage": "https://github.com/iamndlovu/intelligence-condensor-tube-monitoring-control-system#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
