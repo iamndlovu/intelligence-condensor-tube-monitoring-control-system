@@ -4,6 +4,7 @@ import PhContainer from '../PhContainer';
 import styles from './Dashboard.module.scss';
 import ConductivityContainer from '../ConductivityContainer';
 import DissolvedContainer from '../DissolvedContainer';
+import Statistics from '../Statistics';
 
 const data = [
   {
@@ -142,43 +143,14 @@ const Dashboard = () => {
         </section>
 
         <section className={`${styles.sectionContainer} ${styles.stats}`}>
-          <h1>statistics</h1>
-          <div>
-            <article>
-              <h2>pH</h2>
-              <ul>
-                <li>
-                  <span>Average - </span>
-                  <span>{avgPH}</span>
-                </li>
-                <li>
-                  <span>Minimum - </span>
-                  <span>{minPH}</span>
-                </li>
-                <li>
-                  <span>Maximum - </span>
-                  <span>{maxPH}</span>
-                </li>
-              </ul>
-            </article>
-            <article>
-              <h2>Conductivity</h2>
-              <ul>
-                <li>
-                  <span>Average - </span>
-                  <span>{avgConductivity}</span>
-                </li>
-                <li>
-                  <span>Minimum - </span>
-                  <span>{minConductivity}</span>
-                </li>
-                <li>
-                  <span>Maximum - </span>
-                  <span>{maxConductivity}</span>
-                </li>
-              </ul>
-            </article>
-          </div>
+          <Statistics
+            avgConductivity={avgConductivity}
+            minConductivity={minConductivity}
+            maxConductivity={maxConductivity}
+            avgPH={avgPH}
+            minPH={minPH}
+            maxPH={maxPH}
+          />
         </section>
       </main>
     </div>
