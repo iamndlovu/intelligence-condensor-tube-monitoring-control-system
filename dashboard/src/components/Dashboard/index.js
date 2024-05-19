@@ -3,6 +3,7 @@ import PhContainer from '../PhContainer';
 
 import styles from './Dashboard.module.scss';
 import ConductivityContainer from '../ConductivityContainer';
+import DissolvedContainer from '../DissolvedContainer';
 
 const data = [
   {
@@ -13,7 +14,7 @@ const data = [
   },
   {
     ph: { phVal: 3, acidPump: false, alkalinePump: true },
-    dissolved: { dissolvedVal: 'low', buzzer: false, Na2SO4Pump: false },
+    dissolved: { dissolvedVal: 'normal', buzzer: false, Na2SO4Pump: false },
     conductivity: { conductivityVal: 1005, waterPump: true },
     _id: 2,
   },
@@ -95,9 +96,13 @@ const Dashboard = () => {
             acidPump={acidPump}
           />
         </section>
-        <section
-          className={`${styles.sectionContainer} ${styles.dissolved}`}
-        ></section>
+        <section className={`${styles.sectionContainer} ${styles.dissolved}`}>
+          <DissolvedContainer
+            Na2SO4Pump={Na2SO4Pump}
+            buzzer={buzzer}
+            dissolvedVal={dissolvedVal}
+          />
+        </section>
 
         <section
           className={`${styles.sectionContainer} ${styles.conductivity}`}
