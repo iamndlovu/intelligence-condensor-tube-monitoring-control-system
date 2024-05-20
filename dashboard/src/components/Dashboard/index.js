@@ -5,6 +5,7 @@ import styles from './Dashboard.module.scss';
 import ConductivityContainer from '../ConductivityContainer';
 import DissolvedContainer from '../DissolvedContainer';
 import Statistics from '../Statistics';
+import ExtraInfo from '../Extra';
 
 const data = [
   {
@@ -27,7 +28,7 @@ const data = [
   },
 ];
 
-const Dashboard = () => {
+const Dashboard = ({ user, logoutHandler }) => {
   const { _id } = data[0]
     ? data[0]
     : {
@@ -118,28 +119,7 @@ const Dashboard = () => {
         </section>
 
         <section className={`${styles.sectionContainer} ${styles.extra}`}>
-          <header>
-            <h1>intelligent condenser monitoring & control system</h1>
-            <p>logged in as: John Doe</p>
-            <p>
-              <button>logout</button>
-            </p>
-          </header>
-          <menu>
-            <nav>
-              <ul>
-                <li>
-                  <button>historical data</button>
-                </li>
-                <li>
-                  <button>system users</button>
-                </li>
-                <li>
-                  <button>add user</button>
-                </li>
-              </ul>
-            </nav>
-          </menu>
+          <ExtraInfo user={user} logoutHandler={logoutHandler} />
         </section>
 
         <section className={`${styles.sectionContainer} ${styles.stats}`}>
