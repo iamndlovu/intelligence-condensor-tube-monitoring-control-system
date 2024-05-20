@@ -1,11 +1,11 @@
 import React from 'react';
 import PhContainer from '../PhContainer';
-
-import styles from './Dashboard.module.scss';
 import ConductivityContainer from '../ConductivityContainer';
 import DissolvedContainer from '../DissolvedContainer';
 import Statistics from '../Statistics';
 import ExtraInfo from '../Extra';
+
+import styles from './Dashboard.module.scss';
 
 const data = [
   {
