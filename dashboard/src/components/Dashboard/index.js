@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PhContainer from '../PhContainer';
 import ConductivityContainer from '../ConductivityContainer';
 import DissolvedContainer from '../DissolvedContainer';
@@ -6,25 +6,92 @@ import Statistics from '../Statistics';
 import ExtraInfo from '../Extra';
 
 import styles from './Dashboard.module.scss';
+import DataTable from '../DataTable';
 
 const data = [
   {
     ph: { phVal: 2, acidPump: false, alkalinePump: false },
-    dissolved: { dissolvedVal: 'high', buzzer: true, Na2SO4Pump: true },
-    conductivity: { conductivityVal: 1005, waterPump: true },
+    dissolved: { dissolvedVal: 'high', heater: true },
+    conductivity: { conductivityVal: 10005, waterPump: true },
     _id: 1,
+    createdAt: new Date(),
   },
   {
     ph: { phVal: 3, acidPump: false, alkalinePump: true },
-    dissolved: { dissolvedVal: 'normal', buzzer: false, Na2SO4Pump: false },
-    conductivity: { conductivityVal: 1005, waterPump: true },
+    dissolved: { dissolvedVal: 'normal', heater: false },
+    conductivity: { conductivityVal: 10005, waterPump: true },
     _id: 2,
+    createdAt: new Date(),
   },
   {
     ph: { phVal: 10, acidPump: true, alkalinePump: false },
-    dissolved: { dissolvedVal: 'high', buzzer: true, Na2SO4Pump: true },
+    dissolved: { dissolvedVal: 'high', heater: true },
     conductivity: { conductivityVal: 1000, waterPump: false },
     _id: 3,
+    createdAt: new Date(),
+  },
+  {
+    ph: { phVal: 2, acidPump: false, alkalinePump: false },
+    dissolved: { dissolvedVal: 'high', heater: true },
+    conductivity: { conductivityVal: 10005, waterPump: true },
+    _id: 4,
+    createdAt: new Date(),
+  },
+  {
+    ph: { phVal: 3, acidPump: false, alkalinePump: true },
+    dissolved: { dissolvedVal: 'normal', heater: false },
+    conductivity: { conductivityVal: 10005, waterPump: true },
+    _id: 5,
+    createdAt: new Date(),
+  },
+  {
+    ph: { phVal: 10, acidPump: true, alkalinePump: false },
+    dissolved: { dissolvedVal: 'high', heater: true },
+    conductivity: { conductivityVal: 1000, waterPump: false },
+    _id: 6,
+    createdAt: new Date(),
+  },
+  {
+    ph: { phVal: 2, acidPump: false, alkalinePump: false },
+    dissolved: { dissolvedVal: 'high', heater: true },
+    conductivity: { conductivityVal: 10005, waterPump: true },
+    _id: 7,
+    createdAt: new Date(),
+  },
+  {
+    ph: { phVal: 3, acidPump: false, alkalinePump: true },
+    dissolved: { dissolvedVal: 'normal', heater: false },
+    conductivity: { conductivityVal: 10005, waterPump: true },
+    _id: 8,
+    createdAt: new Date(),
+  },
+  {
+    ph: { phVal: 10, acidPump: true, alkalinePump: false },
+    dissolved: { dissolvedVal: 'high', heater: true },
+    conductivity: { conductivityVal: 1000, waterPump: false },
+    _id: 9,
+    createdAt: new Date(),
+  },
+  {
+    ph: { phVal: 2, acidPump: false, alkalinePump: false },
+    dissolved: { dissolvedVal: 'high', heater: true },
+    conductivity: { conductivityVal: 10005, waterPump: true },
+    _id: 10,
+    createdAt: new Date(),
+  },
+  {
+    ph: { phVal: 3, acidPump: false, alkalinePump: true },
+    dissolved: { dissolvedVal: 'normal', heater: false },
+    conductivity: { conductivityVal: 10005, waterPump: true },
+    _id: 11,
+    createdAt: new Date(),
+  },
+  {
+    ph: { phVal: 10, acidPump: true, alkalinePump: false },
+    dissolved: { dissolvedVal: 'high', heater: true },
+    conductivity: { conductivityVal: 1000, waterPump: false },
+    _id: 12,
+    createdAt: new Date(),
   },
 ];
 
@@ -42,12 +109,11 @@ const Dashboard = ({ user, logoutHandler }) => {
         alkalinePump: null,
       };
 
-  const { dissolvedVal, buzzer, Na2SO4Pump } = data[0]
+  const { dissolvedVal, heater } = data[0]
     ? data[0].dissolved
     : {
         dissolvedVal: null,
-        buzzer: null,
-        Na2SO4Pump: null,
+        heater: null,
       };
 
   const { conductivityVal, waterPump } = data[0]
@@ -88,41 +154,63 @@ const Dashboard = ({ user, logoutHandler }) => {
     .map((entry) => entry.conductivity.conductivityVal)
     .reduce((a, b) => (a > b ? a : b), -Infinity);
 
+  const [showTable, setShowTable] = useState(false);
+
+  const toggleTable = () => {
+    setShowTable((old) => !old);
+  };
+
   return (
     <div className={styles.Dashboard}>
       <main className={styles.container}>
-        <section className={`${styles.sectionContainer} ${styles.ph}`}>
-          <PhContainer
-            phVal={phVal}
-            alkalinePump={alkalinePump}
-            acidPump={acidPump}
-          />
-        </section>
-        <section className={`${styles.sectionContainer} ${styles.dissolved}`}>
-          <DissolvedContainer
-            Na2SO4Pump={Na2SO4Pump}
-            buzzer={buzzer}
-            dissolvedVal={dissolvedVal}
-          />
-        </section>
+        {showTable ? (
+          <DataTable data={data} toggle={toggleTable} />
+        ) : (
+          <>
+            <section className={`${styles.sectionContainer} ${styles.ph}`}>
+              <PhContainer
+                phVal={phVal}
+                alkalinePump={alkalinePump}
+                acidPump={acidPump}
+              />
+            </section>
+            <section
+              className={`${styles.sectionContainer} ${styles.dissolved}`}
+            >
+              <DissolvedContainer
+                heater={heater}
+                buzzer={heater}
+                dissolvedVal={dissolvedVal}
+              />
+            </section>
+
+            <section
+              className={`${styles.sectionContainer} ${styles.conductivity}`}
+            >
+              <ConductivityContainer
+                conductivityVal={conductivityVal}
+                waterPump={waterPump}
+                id={_id}
+                minConductivity={minConductivity}
+                maxConductivity={maxConductivity}
+              />
+            </section>
+
+            <section className={`${styles.sectionContainer} ${styles.extra}`}>
+              <ExtraInfo
+                user={user}
+                logoutHandler={logoutHandler}
+                toggle={toggleTable}
+              />
+            </section>
+          </>
+        )}
 
         <section
-          className={`${styles.sectionContainer} ${styles.conductivity}`}
+          className={`${styles.sectionContainer} ${styles.stats} ${
+            showTable && styles.fixed
+          }`}
         >
-          <ConductivityContainer
-            conductivityVal={conductivityVal}
-            waterPump={waterPump}
-            id={_id}
-            minConductivity={minConductivity}
-            maxConductivity={maxConductivity}
-          />
-        </section>
-
-        <section className={`${styles.sectionContainer} ${styles.extra}`}>
-          <ExtraInfo user={user} logoutHandler={logoutHandler} />
-        </section>
-
-        <section className={`${styles.sectionContainer} ${styles.stats}`}>
           <Statistics
             avgConductivity={avgConductivity}
             minConductivity={minConductivity}

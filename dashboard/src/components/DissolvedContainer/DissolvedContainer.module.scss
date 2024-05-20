@@ -79,14 +79,11 @@
         align-items: center;
 
         span:first-child {
-          margin-right: 1rem;
+          margin-right: 4rem;
         }
 
         &:last-child {
           margin-top: 0.4rem;
-          span:first-child {
-            margin-right: 4.32rem;
-          }
         }
       }
     }

@@ -18,6 +18,7 @@
       background-color: #f0f0f0;
       box-shadow: 5px 5px 6px rgba(0, 0, 0, 0.5);
       padding: 0.8rem;
+      position: relative;
 
       &.ph {
         grid-column: 1 / 20;
@@ -25,12 +26,12 @@
       }
 
       &.dissolved {
-        grid-column: 28 / 49;
+        grid-column: 27 / 49;
         grid-row: 1 / 45;
       }
 
       &.conductivity {
-        grid-column: 53 / 74;
+        grid-column: 53 / 75;
         grid-row: 1 / 45;
       }
 
@@ -43,6 +44,14 @@
       &.stats {
         grid-column: 82 / -1;
         grid-row: 1 / -1;
+        transition: all 0.5s ease-out;
+
+        &.fixed {
+          position: fixed;
+          width: 16%;
+          min-height: 87%;
+          left: 82%;
+        }
       }
     }
   }

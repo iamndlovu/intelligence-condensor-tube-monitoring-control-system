@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './DissolvedContainer.module.scss';
 import boxStyles from '../../box.module.scss';
 
-const DissolvedContainer = ({ Na2SO4Pump, dissolvedVal, buzzer }) => {
+const DissolvedContainer = ({ heater, dissolvedVal, buzzer }) => {
   return (
     <article className={styles.DissolvedContainer}>
       <div className={styles.dissolvedTxt}>
@@ -29,12 +29,10 @@ const DissolvedContainer = ({ Na2SO4Pump, dissolvedVal, buzzer }) => {
       </div>
       <div className={styles.dissolvedAction}>
         <div>
-          <span>
-            Na<sub>2</sub>SO<sub>4</sub> Pump
-          </span>
+          <span>Heater</span>
           <span
             className={
-              Na2SO4Pump
+              heater
                 ? `${boxStyles.box} ${boxStyles.success}`
                 : `${boxStyles.box} ${boxStyles.default}`
             }

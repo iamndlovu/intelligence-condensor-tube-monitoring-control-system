@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './Extra.module.scss';
 
-const ExtraInfo = ({ user, logoutHandler }) => {
+const ExtraInfo = ({ user, logoutHandler, toggle }) => {
   const { fullName } = user;
   return (
     <article className={styles.Extra}>
@@ -21,7 +21,7 @@ const ExtraInfo = ({ user, logoutHandler }) => {
         <nav>
           <ul>
             <li>
-              <button>historical data</button>
+              <button onClick={() => toggle()}>historical data</button>
             </li>
             <li>
               <button>system users</button>
