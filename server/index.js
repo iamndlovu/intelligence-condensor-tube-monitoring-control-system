@@ -2,7 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
-// const user = require('./routes/users');
+const user = require('./routes/users');
+const data = require('./routes/data');
 
 const app = express();
 
@@ -13,7 +14,7 @@ app.use(cors());
 //mongoose
 mongoose
   .connect(
-    'mongodb://127.0.0.1:27017/underground-mining-tracking-and-collision-avoidance'
+    'mongodb://127.0.0.1:27017/intelligent-condenser-monitoring-ctrl-system'
   )
   .then(() => console.log('MOngoDB database connected'));
 
@@ -32,7 +33,8 @@ app.post('/test', (req, res) => {
   res.json(req.body);
 });
 
-// app.use('/users', user);
+app.use('/users', user);
+app.use('/data', data);
 
 const PORT = process.env.PORT || 5000;
 
