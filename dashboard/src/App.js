@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Dashboard from './components/Dashboard';
 import LoginForm from './components/loginForm/LoginForm';
 
-const Login = ({ handler }) => (
+const Login = ({ handler, tempHandle, logout, user }) => (
   <div
     style={{
       display: 'flex',
@@ -19,7 +19,9 @@ const Login = ({ handler }) => (
         textAlign: 'center',
       }}
     >
-      <h1>intelligent condenser monitoring & control system</h1>
+      <h1 style={{ textTransform: 'uppercase' }}>
+        intelligent condenser monitoring & control system
+      </h1>
     </header>
 
     <main
@@ -36,7 +38,12 @@ const Login = ({ handler }) => (
           margin: 'auto',
         }}
       >
-        <LoginForm handler={handler} />
+        <LoginForm
+          handler={handler}
+          tempHandle={tempHandle}
+          logout={logout}
+          user={user}
+        />
       </section>
     </main>
 
@@ -59,18 +66,25 @@ const Login = ({ handler }) => (
 
 const App = () => {
   const [user, setUser] = useState(null);
+  const [temp, setTemp] = useState(false);
 
   const logoutHandler = () => {
     localStorage.removeItem('intelligent-condenser-monitoring-system-user');
+    setTemp(false);
     setUser(null);
   };
 
   const loginHandler = (user) => {
-    localStorage.setIItem(
+    localStorage.setItem(
       'intelligent-condenser-monitoring-system-user',
       JSON.stringify(user)
     );
     setUser(user);
+    tempHandle(user.temp);
+  };
+
+  const tempHandle = (val = true) => {
+    setTemp(val);
   };
 
   useEffect(() => {
@@ -85,10 +99,15 @@ const App = () => {
 
   return (
     <div className='App'>
-      {user ? (
+      {user && !user.temp && !temp ? (
         <Dashboard user={user} logoutHandler={logoutHandler} />
       ) : (
-        <Login handler={loginHandler} />
+        <Login
+          handler={loginHandler}
+          tempHandle={tempHandle}
+          user={user}
+          logout={logoutHandler}
+        />
       )}
     </div>
   );

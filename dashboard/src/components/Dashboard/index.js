@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import PhContainer from '../PhContainer';
 import ConductivityContainer from '../ConductivityContainer';
 import DissolvedContainer from '../DissolvedContainer';
@@ -8,94 +9,26 @@ import ExtraInfo from '../Extra';
 import styles from './Dashboard.module.scss';
 import DataTable from '../DataTable';
 
-const data = [
-  {
-    ph: { phVal: 2, acidPump: false, alkalinePump: false },
-    dissolved: { dissolvedVal: 'high', heater: true },
-    conductivity: { conductivityVal: 10005, waterPump: true },
-    _id: 1,
-    createdAt: new Date(),
-  },
-  {
-    ph: { phVal: 3, acidPump: false, alkalinePump: true },
-    dissolved: { dissolvedVal: 'normal', heater: false },
-    conductivity: { conductivityVal: 10005, waterPump: true },
-    _id: 2,
-    createdAt: new Date(),
-  },
-  {
-    ph: { phVal: 10, acidPump: true, alkalinePump: false },
-    dissolved: { dissolvedVal: 'high', heater: true },
-    conductivity: { conductivityVal: 1000, waterPump: false },
-    _id: 3,
-    createdAt: new Date(),
-  },
-  {
-    ph: { phVal: 2, acidPump: false, alkalinePump: false },
-    dissolved: { dissolvedVal: 'high', heater: true },
-    conductivity: { conductivityVal: 10005, waterPump: true },
-    _id: 4,
-    createdAt: new Date(),
-  },
-  {
-    ph: { phVal: 3, acidPump: false, alkalinePump: true },
-    dissolved: { dissolvedVal: 'normal', heater: false },
-    conductivity: { conductivityVal: 10005, waterPump: true },
-    _id: 5,
-    createdAt: new Date(),
-  },
-  {
-    ph: { phVal: 10, acidPump: true, alkalinePump: false },
-    dissolved: { dissolvedVal: 'high', heater: true },
-    conductivity: { conductivityVal: 1000, waterPump: false },
-    _id: 6,
-    createdAt: new Date(),
-  },
-  {
-    ph: { phVal: 2, acidPump: false, alkalinePump: false },
-    dissolved: { dissolvedVal: 'high', heater: true },
-    conductivity: { conductivityVal: 10005, waterPump: true },
-    _id: 7,
-    createdAt: new Date(),
-  },
-  {
-    ph: { phVal: 3, acidPump: false, alkalinePump: true },
-    dissolved: { dissolvedVal: 'normal', heater: false },
-    conductivity: { conductivityVal: 10005, waterPump: true },
-    _id: 8,
-    createdAt: new Date(),
-  },
-  {
-    ph: { phVal: 10, acidPump: true, alkalinePump: false },
-    dissolved: { dissolvedVal: 'high', heater: true },
-    conductivity: { conductivityVal: 1000, waterPump: false },
-    _id: 9,
-    createdAt: new Date(),
-  },
-  {
-    ph: { phVal: 2, acidPump: false, alkalinePump: false },
-    dissolved: { dissolvedVal: 'high', heater: true },
-    conductivity: { conductivityVal: 10005, waterPump: true },
-    _id: 10,
-    createdAt: new Date(),
-  },
-  {
-    ph: { phVal: 3, acidPump: false, alkalinePump: true },
-    dissolved: { dissolvedVal: 'normal', heater: false },
-    conductivity: { conductivityVal: 10005, waterPump: true },
-    _id: 11,
-    createdAt: new Date(),
-  },
-  {
-    ph: { phVal: 10, acidPump: true, alkalinePump: false },
-    dissolved: { dissolvedVal: 'high', heater: true },
-    conductivity: { conductivityVal: 1000, waterPump: false },
-    _id: 12,
-    createdAt: new Date(),
-  },
-];
-
 const Dashboard = ({ user, logoutHandler }) => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const dataRes = await axios.get('http://localhost:5000/data');
+        setData(dataRes.data);
+      } catch (err) {
+        console.error(`Failed to fetch data from server:\n\t\t${err}`);
+      }
+    };
+
+    const fetchDataPeriodically = setInterval(() => fetchData(), 5000);
+
+    return () => {
+      clearInterval(fetchDataPeriodically);
+    };
+  }, []);
+
   const { _id } = data[0]
     ? data[0]
     : {

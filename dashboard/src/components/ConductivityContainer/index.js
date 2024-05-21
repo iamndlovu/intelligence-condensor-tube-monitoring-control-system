@@ -20,6 +20,7 @@ const ConductivityContainer = ({ id, waterPump, conductivityVal }) => {
         percent={conductivityVal / 15000}
         textColor='transparent'
         style={{ marginBottom: '3rem' }}
+        animate={false}
       />
       <div className={styles.conductivityAction}>
         <div>

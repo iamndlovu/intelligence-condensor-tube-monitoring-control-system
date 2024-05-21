@@ -3,18 +3,20 @@ import React from 'react';
 import styles from './Extra.module.scss';
 
 const ExtraInfo = ({ user, logoutHandler, toggle }) => {
-  const { fullName } = user;
+  let { fullName } = user;
+  fullName ? console.log(fullName) : (fullName = 'unknown');
+
   return (
     <article className={styles.Extra}>
       <header>
         <h1>intelligent condenser monitoring & control system</h1>
         <p>
-          <div>
+          <span>
             Logged in as: <span>{fullName.toLowerCase()}</span>
-          </div>
-          <div>
+          </span>
+          <span>
             <button onClick={() => logoutHandler()}>logout</button>
-          </div>
+          </span>
         </p>
       </header>
       <menu>

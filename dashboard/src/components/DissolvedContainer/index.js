@@ -4,6 +4,7 @@ import styles from './DissolvedContainer.module.scss';
 import boxStyles from '../../box.module.scss';
 
 const DissolvedContainer = ({ heater, dissolvedVal, buzzer }) => {
+  if (dissolvedVal == null) dissolvedVal = '';
   return (
     <article className={styles.DissolvedContainer}>
       <div className={styles.dissolvedTxt}>

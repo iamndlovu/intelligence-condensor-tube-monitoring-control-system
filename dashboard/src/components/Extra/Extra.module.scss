@@ -44,7 +44,7 @@
       display: flex;
       justify-content: space-between;
 
-      & > div > span {
+      & > span > span {
         text-transform: capitalize;
         text-decoration: underline;
         display: inline-block;

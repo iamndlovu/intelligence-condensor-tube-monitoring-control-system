@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './LoginForm.module.scss';
 import RegistrationForm from '../registrationForm/RegistrationForm';
 
-const LoginForm = ({ handler }) => {
+const LoginForm = ({ user, handler, tempHandle, logout }) => {
   const [users, setUsers] = useState(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -24,6 +24,7 @@ const LoginForm = ({ handler }) => {
 
     for (let user of users) {
       if (user.email === email && user.password === password) {
+        user.temp = false;
         handler(user);
         return;
       }
@@ -42,17 +43,24 @@ const LoginForm = ({ handler }) => {
     const isIdCorrect = isIdCorrectRes.data;
     if (isIdCorrect) {
       setShowRegister(true);
-      handler({ level: 0, temp: true });
+      tempHandle(true);
+      handler({ temp: true });
       return;
     }
 
     alert('ERROR: \nWrong ID');
   };
 
+  const regHandler = () => {
+    if (user.temp) {
+      logout();
+    }
+  };
+
   return (
     <>
       {showRegister ? (
-        <RegistrationForm />
+        <RegistrationForm handler={regHandler} />
       ) : superCheck ? (
         <form form className={styles.LoginForm} onSubmit={checkID}>
           <div className={styles.formGroup}>

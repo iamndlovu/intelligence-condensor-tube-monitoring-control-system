@@ -30,7 +30,7 @@ const RegistrationForm = ({ handler }) => {
       .then((res) => res.data)
       .then((data) => console.log(data))
       .then(() => alert('User added'))
-      .then(() => handler())
+      .then(() => window.document.location.reload(true))
       .catch((error) => alert(error));
   };
 
