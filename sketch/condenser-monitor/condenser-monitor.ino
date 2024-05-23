@@ -1,6 +1,7 @@
 // Setup the client to send sensor data to the server
 #include <WiFi.h>
 #include <HTTPClient.h>
+#include <ArduinoHttpClient.h>
 #include <SoftwareSerial.h>
 SoftwareSerial mySerial(18,19);// rx tx
 
@@ -480,7 +481,7 @@ void loop() {
 
   //DISSOLVED O2
   dissolvedData["dissolvedVal"] = temperature < 34 ? "High" : "Normal";
-  dissolvedData["heater"] = temperature < 34
+  dissolvedData["heater"] = temperature < 34;
 
   sensorDataObject["dissolved"] = dissolvedData;
   sensorDataObject["conductivity"] = conductivityData;
